@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta name="description" content="Discover your unique music personality with Timbre. Connect Spotify to decode your listening habits into an archetype, Genre DNA, and a shareable card." />
+    <title>Timbre - Discover Your Music Personality</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+
+    <!-- Open Graph (Facebook, LinkedIn, Discord, etc.) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Timbre" />
+    <meta property="og:title" content="Timbre - Discover Your Music Personality" />
+    <meta property="og:description" content="Connect Spotify and decode your listening habits into a musical archetype, Genre DNA, mood profile, and a shareable card." />
+    <meta property="og:url" content="https://timbre.app/" />
+    <meta property="og:image" content="https://timbre.app/og-image.svg" />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Timbre - Discover Your Music Personality" />
+    <meta name="twitter:description" content="Connect Spotify and decode your listening habits into a musical archetype, Genre DNA, mood profile, and a shareable card." />
+    <meta name="twitter:image" content="https://timbre.app/og-image.svg" />
+
+    <!-- Set theme before paint to avoid a flash -->
+    <script>
+        (function () {
+            try {
+                var t = localStorage.getItem('theme');
+                if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                    document.documentElement.classList.add('dark');
+                }
+            } catch (e) {}
+        })();
+    </script>
+
+    <!-- Google Fonts: Inter only -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Tailwind Config (external) -->
+    <script src="tailwind-config.js"></script>
+
+    <!-- Custom Styles (external) -->
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body class="antialiased text-fg selection:bg-accent/20">
+
+    <!-- ==============================
+         AMBIENT MOVING BACKGROUND
+         ============================== -->
+    <div id="ambient-bg" aria-hidden="true">
+        <div class="ambient-bloom b1"></div>
+        <div class="ambient-bloom b2"></div>
+        <div class="ambient-bloom b3"></div>
+    </div>
+
+    <!-- ==============================
+         TOP NAVIGATION BAR
+         ============================== -->
+    <nav class="sticky top-0 z-50 bg-bg/80 backdrop-blur border-b border-line">
+        <div class="max-w-6xl mx-auto flex items-center justify-between px-6 h-16">
+            <a href="#" class="flex items-center gap-2 text-lg font-bold tracking-tight text-fg">
+                <i class="fa-solid fa-headphones-simple text-accent-text"></i>
+                Timbre
+            </a>
+
+            <div class="hidden md:flex items-center gap-8 text-sm font-medium text-muted">
+                <a href="#how" class="hover:text-fg transition-colors">How it Works</a>
+                <a href="#features" class="hover:text-fg transition-colors">Features</a>
+                <a href="#archetypes" class="hover:text-fg transition-colors">Archetypes</a>
+                <a href="#faq" class="hover:text-fg transition-colors">FAQ</a>
+            </div>
+
+            <div class="flex items-center gap-2">
+                <button id="theme-toggle" class="w-10 h-10 rounded-full border border-line text-muted hover:text-fg transition-colors flex items-center justify-center" aria-label="Toggle theme">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+                <button id="login-btn" class="inline-flex items-center gap-2 bg-fg text-bg text-sm font-medium px-4 py-2 rounded-full hover:opacity-80 transition-opacity active:scale-95">
+                    <i class="fa-brands fa-spotify"></i>
+                    Login
+                </button>
+                <button id="mobile-menu-btn" class="md:hidden w-10 h-10 rounded-full border border-line text-muted hover:text-fg transition-colors flex items-center justify-center" aria-label="Open menu" aria-expanded="false">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="md:hidden hidden border-t border-line bg-bg/95 backdrop-blur">
+            <div class="px-6 py-3 flex flex-col text-sm font-medium">
+                <a href="#how" class="py-2.5 text-muted hover:text-fg transition-colors">How it Works</a>
+                <a href="#features" class="py-2.5 text-muted hover:text-fg transition-colors">Features</a>
+                <a href="#archetypes" class="py-2.5 text-muted hover:text-fg transition-colors">Archetypes</a>
+                <a href="#faq" class="py-2.5 text-muted hover:text-fg transition-colors">FAQ</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ==============================
+         MAIN CONTENT
+         ============================== -->
+    <main>
+
+        <!-- ── Hero Section ── -->
+        <section id="hero-section" class="max-w-6xl mx-auto px-6 pt-16 pb-20 grid lg:grid-cols-2 gap-14 items-center">
+
+            <!-- Hero Text -->
+            <div data-reveal>
+                <span class="inline-flex items-center gap-2 text-xs font-medium text-muted border border-line rounded-full px-3 py-1">
+                    <span class="w-1.5 h-1.5 rounded-full bg-accent"></span>
+                    2.4M listeners analyzed
+                </span>
+
+                <h1 class="mt-6 text-4xl sm:text-5xl font-extrabold tracking-tight leading-[1.1] text-fg">
+                    Discover your <span class="text-accent-text">music personality</span>.
+                </h1>
+
+                <p class="mt-5 text-lg text-muted max-w-md leading-relaxed">
+                    Connect your Spotify and we'll decode your listening habits into a musical archetype,
+                    Genre DNA, a mood profile, and a shareable personality card.
+                </p>
+
+                <div class="mt-8 flex flex-wrap gap-3">
+                    <button id="spotify-login-btn" class="inline-flex items-center gap-2 bg-accent text-white font-semibold px-6 py-3 rounded-full hover:bg-accent-dark transition-colors active:scale-95">
+                        <i class="fa-brands fa-spotify text-lg"></i>
+                        Login with Spotify
+                    </button>
+                    <button id="demo-btn" class="inline-flex items-center gap-2 border border-line text-fg font-semibold px-6 py-3 rounded-full hover:bg-surface-2 transition-colors active:scale-95">
+                        <i class="fa-regular fa-circle-play"></i>
+                        View Demo
+                    </button>
+                </div>
+
+                <p class="mt-5 flex items-center gap-2 text-xs text-faint">
+                    <i class="fa-solid fa-lock"></i>
+                    We only send an anonymous summary of your taste — never your name or login — to craft your persona.
+                </p>
+            </div>
+
+            <!-- Hero Preview Card -->
+            <div class="relative" data-reveal>
+                <div class="card bg-surface border border-line rounded-2xl shadow-sm p-6 max-w-sm mx-auto">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-semibold uppercase tracking-wider text-faint">Your Archetype</span>
+                        <span class="inline-flex items-center justify-center w-9 h-9 rounded-full bg-accent/10 text-accent-text">
+                            <i class="fa-solid fa-moon"></i>
+                        </span>
+                    </div>
+
+                    <h3 class="mt-3 text-2xl font-bold text-fg">The Midnight Dreamer</h3>
+                    <p class="mt-1 text-sm text-muted">Reflective · Emotional · Nocturnal</p>
+
+                    <div class="mt-6 flex items-end gap-1 h-16">
+                        <div class="flex-1 bg-accent/30 rounded-t h-1/2"></div>
+                        <div class="flex-1 bg-accent/50 rounded-t h-1/3"></div>
+                        <div class="flex-1 bg-accent/70 rounded-t h-3/4"></div>
+                        <div class="flex-1 bg-accent rounded-t h-full"></div>
+                        <div class="flex-1 bg-accent/70 rounded-t h-2/3"></div>
+                        <div class="flex-1 bg-accent/50 rounded-t h-2/5"></div>
+                        <div class="flex-1 bg-accent/30 rounded-t h-1/2"></div>
+                        <div class="flex-1 bg-accent/60 rounded-t h-5/6"></div>
+                    </div>
+
+                    <div class="mt-6 space-y-3 text-sm">
+                        <div>
+                            <div class="flex justify-between text-muted mb-1"><span>Energy</span><span>41%</span></div>
+                            <div class="h-1.5 bg-track rounded-full overflow-hidden"><div class="h-full bg-accent rounded-full" style="width:41%"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-muted mb-1"><span>Happiness</span><span>28%</span></div>
+                            <div class="h-1.5 bg-track rounded-full overflow-hidden"><div class="h-full bg-accent rounded-full" style="width:28%"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-muted mb-1"><span>Danceability</span><span>52%</span></div>
+                            <div class="h-1.5 bg-track rounded-full overflow-hidden"><div class="h-full bg-accent rounded-full" style="width:52%"></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── Stats Strip ── -->
+        <section class="border-y border-line bg-surface-2">
+            <div class="max-w-6xl mx-auto px-6 py-10 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                <div data-reveal>
+                    <p class="text-3xl font-extrabold text-fg">6</p>
+                    <p class="mt-1 text-sm text-muted">Musical archetypes</p>
+                </div>
+                <div data-reveal>
+                    <p class="text-3xl font-extrabold text-fg">12+</p>
+                    <p class="mt-1 text-sm text-muted">Audio metrics analyzed</p>
+                </div>
+                <div data-reveal>
+                    <p class="text-3xl font-extrabold text-fg">2.4M</p>
+                    <p class="mt-1 text-sm text-muted">Listeners profiled</p>
+                </div>
+                <div data-reveal>
+                    <p class="text-3xl font-extrabold text-fg">100%</p>
+                    <p class="mt-1 text-sm text-muted">Secure OAuth login</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── How It Works ── -->
+        <section id="how" class="max-w-6xl mx-auto px-6 py-24">
+            <div class="max-w-2xl mx-auto text-center" data-reveal>
+                <p class="text-sm font-semibold uppercase tracking-wider text-accent-text">How it works</p>
+                <h2 class="mt-3 text-3xl sm:text-4xl font-bold tracking-tight text-fg">Three steps to your sonic profile</h2>
+                <p class="mt-4 text-muted">No setup, no downloads. Connect your account and get a full breakdown in seconds.</p>
+            </div>
+
+            <div class="mt-14 grid md:grid-cols-3 gap-6">
+                <div class="card card-hover bg-surface border border-line rounded-2xl p-7" data-reveal>
+                    <div class="flex items-center justify-center w-12 h-12 rounded-xl bg-accent/10 text-accent-text text-xl">
+                        <i class="fa-brands fa-spotify"></i>
+                    </div>
+                    <p class="mt-5 text-xs font-semibold text-faint">STEP 1</p>
+                    <h3 class="mt-1 text-lg font-semibold text-fg">Connect Spotify</h3>
+                    <p class="mt-2 text-sm text-muted leading-relaxed">Securely link your account with a one-click OAuth login. We only read your listening data.</p>
+                </div>
+                <div class="card card-hover bg-surface border border-line rounded-2xl p-7" data-reveal>
+                    <div class="flex items-center justify-center w-12 h-12 rounded-xl bg-accent/10 text-accent-text text-xl">
+                        <i class="fa-solid fa-wave-square"></i>
+                    </div>
+                    <p class="mt-5 text-xs font-semibold text-faint">STEP 2</p>
+                    <h3 class="mt-1 text-lg font-semibold text-fg">We analyze</h3>
+                    <p class="mt-2 text-sm text-muted leading-relaxed">Your top tracks and artists are scanned for tempo, energy, mood, and genre patterns.</p>
+                </div>
+                <div class="card card-hover bg-surface border border-line rounded-2xl p-7" data-reveal>
+                    <div class="flex items-center justify-center w-12 h-12 rounded-xl bg-accent/10 text-accent-text text-xl">
+                        <i class="fa-solid fa-id-card"></i>
+                    </div>
+                    <p class="mt-5 text-xs font-semibold text-faint">STEP 3</p>
+                    <h3 class="mt-1 text-lg font-semibold text-fg">Discover &amp; share</h3>
+                    <p class="mt-2 text-sm text-muted leading-relaxed">Get your archetype, Genre DNA, and audio signature — plus a card built to share.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── Features ── -->
+        <section id="features" class="bg-surface-2 border-y border-line">
+            <div class="max-w-6xl mx-auto px-6 py-24">
+                <div class="max-w-2xl mx-auto text-center" data-reveal>
+                    <p class="text-sm font-semibold uppercase tracking-wider text-accent-text">Features</p>
+                    <h2 class="mt-3 text-3xl sm:text-4xl font-bold tracking-tight text-fg">Everything your playlist says about you</h2>
+                    <p class="mt-4 text-muted">A complete, data-driven read on your taste — clear, visual, and yours to keep.</p>
+                </div>
+
+                <div class="mt-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="card card-hover bg-surface border border-line rounded-2xl p-6" data-reveal>
+                        <i class="fa-solid fa-dna text-2xl text-accent-text"></i>
+                        <h3 class="mt-4 text-lg font-semibold text-fg">Genre DNA</h3>
+                        <p class="mt-2 text-sm text-muted leading-relaxed">A ranked map of the genres and sub-genres that define your listening.</p>
+                    </div>
+                    <div class="card card-hover bg-surface border border-line rounded-2xl p-6" data-reveal>
+                        <i class="fa-solid fa-brain text-2xl text-accent-text"></i>
+                        <h3 class="mt-4 text-lg font-semibold text-fg">Mood Analysis</h3>
+                        <p class="mt-2 text-sm text-muted leading-relaxed">Happiness, energy, and danceability scored across your favorite tracks.</p>
+                    </div>
+                    <div class="card card-hover bg-surface border border-line rounded-2xl p-6" data-reveal>
+                        <i class="fa-solid fa-sliders text-2xl text-accent-text"></i>
+                        <h3 class="mt-4 text-lg font-semibold text-fg">Audio Signature</h3>
+                        <p class="mt-2 text-sm text-muted leading-relaxed">Tempo, acousticness, liveness, and more — the fingerprint of your sound.</p>
+                    </div>
+                    <div class="card card-hover bg-surface border border-line rounded-2xl p-6" data-reveal>
+                        <i class="fa-solid fa-id-badge text-2xl text-accent-text"></i>
+                        <h3 class="mt-4 text-lg font-semibold text-fg">Personality Card</h3>
+                        <p class="mt-2 text-sm text-muted leading-relaxed">A clean, shareable summary of your sonic identity for socials.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── Archetypes (Curved 3D carousel) ── -->
+        <section id="archetypes" class="max-w-6xl mx-auto px-6 py-24">
+            <div class="max-w-2xl mx-auto text-center" data-reveal>
+                <p class="text-sm font-semibold uppercase tracking-wider text-accent-text">The archetypes</p>
+                <h2 class="mt-3 text-3xl sm:text-4xl font-bold tracking-tight text-fg">Which one are you?</h2>
+                <p class="mt-4 text-muted">Every listener maps to one of six archetypes. Drag, swipe, or use the arrows to explore them.</p>
+            </div>
+
+            <div class="archetype-carousel" id="archetype-carousel">
+                <div class="carousel-viewport">
+                    <div class="carousel-stage">
+                        <article class="carousel-card">
+                            <div class="card-inner">
+                                <span class="inline-flex items-center justify-center w-11 h-11 rounded-xl bg-accent/10 text-accent-text text-xl"><i class="fa-solid fa-compass-drafting"></i></span>
+                                <h3 class="mt-5 text-xl font-bold text-fg">The Architect</h3>
+                                <p class="mt-3 text-sm text-muted leading-relaxed flex-1">Methodical and precise. You gravitate toward structured compositions and technical mastery.</p>
+                                <p class="mt-4 text-xs font-medium text-faint">Analytical · Detail-oriented · Structured</p>
+                                <span class="mt-3 text-xs font-semibold text-accent-text">01 / 06</span>
+                            </div>
+                        </article>
+                        <article class="carousel-card">
+                            <div class="card-inner">
+                                <span class="inline-flex items-center justify-center w-11 h-11 rounded-xl bg-accent/10 text-accent-text text-xl"><i class="fa-solid fa-moon"></i></span>
+                                <h3 class="mt-5 text-xl font-bold text-fg">The Midnight Dreamer</h3>
+                                <p class="mt-3 text-sm text-muted leading-relaxed flex-1">Introspective and atmospheric — a late-night journey through ambient, melancholic sound.</p>
+                                <p class="mt-4 text-xs font-medium text-faint">Reflective · Emotional · Nocturnal</p>
+                                <span class="mt-3 text-xs font-semibold text-accent-text">02 / 06</span>
+                            </div>
+                        </article>
+                        <article class="carousel-card">
+                            <div class="card-inner">
+                                <span class="inline-flex items-center justify-center w-11 h-11 rounded-xl bg-accent/10 text-accent-text text-xl"><i class="fa-solid fa-wand-magic-sparkles"></i></span>
+                                <h3 class="mt-5 text-xl font-bold text-fg">The Synthesizer</h3>
+                                <p class="mt-3 text-sm text-muted leading-relaxed flex-1">Genre-fluid and eclectic. You blend electronic, indie, and experimental with fearless curiosity.</p>
+                                <p class="mt-4 text-xs font-medium text-faint">Adventurous · Creative · Eclectic</p>
+                                <span class="mt-3 text-xs font-semibold text-accent-text">03 / 06</span>
+                            </div>
+                        </article>
+                        <article class="carousel-card">
+                            <div class="card-inner">
+                                <span class="inline-flex items-center justify-center w-11 h-11 rounded-xl bg-accent/10 text-accent-text text-xl"><i class="fa-solid fa-bolt"></i></span>
+                                <h3 class="mt-5 text-xl font-bold text-fg">The Chaotic Motivator</h3>
+                                <p class="mt-3 text-sm text-muted leading-relaxed flex-1">High-octane and relentless — fast tempos, heavy drops, and maximum energy.</p>
+                                <p class="mt-4 text-xs font-medium text-faint">Energetic · Bold · Unstoppable</p>
+                                <span class="mt-3 text-xs font-semibold text-accent-text">04 / 06</span>
+                            </div>
+                        </article>
+                        <article class="carousel-card">
+                            <div class="card-inner">
+                                <span class="inline-flex items-center justify-center w-11 h-11 rounded-xl bg-accent/10 text-accent-text text-xl"><i class="fa-solid fa-book-open"></i></span>
+                                <h3 class="mt-5 text-xl font-bold text-fg">The Storyteller</h3>
+                                <p class="mt-3 text-sm text-muted leading-relaxed flex-1">Lyric-driven and soulful. You connect with songs that tell a story, from folk to hip-hop.</p>
+                                <p class="mt-4 text-xs font-medium text-faint">Empathetic · Lyrical · Warm</p>
+                                <span class="mt-3 text-xs font-semibold text-accent-text">05 / 06</span>
+                            </div>
+                        </article>
+                        <article class="carousel-card">
+                            <div class="card-inner">
+                                <span class="inline-flex items-center justify-center w-11 h-11 rounded-xl bg-accent/10 text-accent-text text-xl"><i class="fa-solid fa-record-vinyl"></i></span>
+                                <h3 class="mt-5 text-xl font-bold text-fg">The Groove Master</h3>
+                                <p class="mt-3 text-sm text-muted leading-relaxed flex-1">Rhythm is your religion — funk, R&amp;B, dance, and disco keep you moving.</p>
+                                <p class="mt-4 text-xs font-medium text-faint">Rhythmic · Social · Joyful</p>
+                                <span class="mt-3 text-xs font-semibold text-accent-text">06 / 06</span>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+
+                <button class="carousel-arrow carousel-prev" aria-label="Previous archetype"><i class="fa-solid fa-chevron-left"></i></button>
+                <button class="carousel-arrow carousel-next" aria-label="Next archetype"><i class="fa-solid fa-chevron-right"></i></button>
+                <div class="carousel-dots"></div>
+            </div>
+        </section>
+
+        <!-- ── Visualizer Section ── -->
+        <section id="viz-section" class="bg-surface-2 border-y border-line">
+            <div class="max-w-3xl mx-auto px-6 py-24 text-center" data-reveal>
+                <p class="text-sm font-semibold uppercase tracking-wider text-accent-text">Under the hood</p>
+                <h2 class="mt-3 text-3xl sm:text-4xl font-bold tracking-tight text-fg">More than play counts</h2>
+                <div id="visualizer" class="flex justify-center items-end gap-1.5 h-28 my-10"></div>
+                <p class="text-muted leading-relaxed">
+                    We analyze tempo, energy, acousticness, and instrumentalness across your library
+                    to build a profile as detailed as your taste — not just a list of what you played most.
+                </p>
+            </div>
+        </section>
+
+        <!-- ── FAQ ── -->
+        <section id="faq" class="max-w-3xl mx-auto px-6 py-24">
+            <div class="text-center" data-reveal>
+                <p class="text-sm font-semibold uppercase tracking-wider text-accent-text">FAQ</p>
+                <h2 class="mt-3 text-3xl sm:text-4xl font-bold tracking-tight text-fg">Questions, answered</h2>
+            </div>
+
+            <div class="mt-12 divide-y divide-line border-t border-b border-line" data-reveal>
+                <details class="group py-5">
+                    <summary class="flex items-center justify-between text-base font-medium text-fg">
+                        Is my Spotify data safe?
+                        <i class="fa-solid fa-chevron-down faq-chevron text-faint"></i>
+                    </summary>
+                    <p class="mt-3 text-sm text-muted leading-relaxed">Timbre signs you in with Spotify's secure OAuth (we never see your password). To write your persona, an anonymous summary of your taste — your top genres and audio traits, not your name or login — is sent to an AI. Your Spotify data itself isn't stored.</p>
+                </details>
+                <details class="group py-5">
+                    <summary class="flex items-center justify-between text-base font-medium text-fg">
+                        Do I need a paid Spotify account?
+                        <i class="fa-solid fa-chevron-down faq-chevron text-faint"></i>
+                    </summary>
+                    <p class="mt-3 text-sm text-muted leading-relaxed">No. A free Spotify account works fine — we only read your top artists, tracks, and listening history.</p>
+                </details>
+                <details class="group py-5">
+                    <summary class="flex items-center justify-between text-base font-medium text-fg">
+                        Can I try it without logging in?
+                        <i class="fa-solid fa-chevron-down faq-chevron text-faint"></i>
+                    </summary>
+                    <p class="mt-3 text-sm text-muted leading-relaxed">Absolutely. Click <span class="font-medium text-fg">View Demo</span> to explore a full sample profile before connecting your account.</p>
+                </details>
+                <details class="group py-5">
+                    <summary class="flex items-center justify-between text-base font-medium text-fg">
+                        How is my archetype decided?
+                        <i class="fa-solid fa-chevron-down faq-chevron text-faint"></i>
+                    </summary>
+                    <p class="mt-3 text-sm text-muted leading-relaxed">We average the audio features of your top tracks — energy, valence, danceability, and more — then match that signature to one of six archetypes.</p>
+                </details>
+            </div>
+        </section>
+
+        <!-- ── Final CTA ── -->
+        <section class="bg-fg text-bg">
+            <div class="max-w-4xl mx-auto px-6 py-20 text-center" data-reveal>
+                <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-bg">Ready to meet your music self?</h2>
+                <p class="mt-4 text-bg/70 max-w-lg mx-auto">Connect Spotify and get your full sonic profile in seconds. Free, private, and shareable.</p>
+                <div class="mt-8 flex flex-wrap justify-center gap-3">
+                    <button id="cta-login-btn" class="inline-flex items-center gap-2 bg-accent text-white font-semibold px-6 py-3 rounded-full hover:bg-accent-dark transition-colors active:scale-95">
+                        <i class="fa-brands fa-spotify text-lg"></i>
+                        Login with Spotify
+                    </button>
+                    <button id="cta-demo-btn" class="inline-flex items-center gap-2 border border-bg/30 text-bg font-semibold px-6 py-3 rounded-full hover:bg-bg/10 transition-colors active:scale-95">
+                        <i class="fa-regular fa-circle-play"></i>
+                        View Demo
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── Results Section (dynamically filled) ── -->
+        <section id="results-section" class="hidden max-w-6xl mx-auto px-6 py-16"></section>
+
+    </main>
+
+    <!-- ==============================
+         FOOTER
+         ============================== -->
+    <footer class="border-t border-line bg-bg">
+        <div class="max-w-6xl mx-auto px-6 py-10 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex flex-col items-center md:items-start gap-1">
+                <span class="flex items-center gap-2 font-bold text-fg">
+                    <i class="fa-solid fa-headphones-simple text-accent-text"></i>
+                    Timbre
+                </span>
+                <p class="text-sm text-muted">&copy; 2026 Timbre. Not affiliated with Spotify AB.</p>
+            </div>
+            <div class="flex gap-6 text-sm text-muted">
+                <a class="hover:text-fg transition-colors" href="#">Privacy</a>
+                <a class="hover:text-fg transition-colors" href="#">Terms</a>
+                <a class="hover:text-fg transition-colors" href="#">Spotify API</a>
+            </div>
+            <div class="flex gap-3 text-muted">
+                <a href="#" aria-label="Share" class="w-9 h-9 rounded-full border border-line flex items-center justify-center hover:text-accent-text transition-colors"><i class="fa-solid fa-share-nodes text-sm"></i></a>
+                <a href="#" aria-label="Email" class="w-9 h-9 rounded-full border border-line flex items-center justify-center hover:text-accent-text transition-colors"><i class="fa-solid fa-envelope text-sm"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==============================
+         LIBRARIES + SCRIPTS
+         ============================== -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+    <script src="spotify.js"></script>
+    <script src="app.js"></script>
+
+    <!-- ==============================
+         LOADING OVERLAY
+         ============================== -->
+    <div id="loading-overlay" class="fixed inset-0 bg-bg/90 backdrop-blur z-[60] flex flex-col items-center justify-center gap-4 hidden">
+        <div class="w-12 h-12 rounded-full border-4 border-accent border-t-transparent animate-spin"></div>
+        <p class="loading-text text-lg font-medium text-fg">Analyzing your music...</p>
+    </div>
+
+</body>
+</html>
